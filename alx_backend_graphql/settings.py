@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 GRAPHENE = {
-    "SCHEMA": "schema.schema",
+    "SCHEMA": "alx_backend_graphql.schema.schema",
 }
 
 MIDDLEWARE = [
