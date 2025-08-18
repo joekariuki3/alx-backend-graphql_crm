@@ -104,7 +104,8 @@ class CreateCustomer(graphene.Mutation):
         else :
             phone = None
         try:
-            customer = Customer.objects.create(name=name, email=email, phone=phone)
+            customer = Customer(name=name, email=email, phone=phone)
+            customer.save()
             return CreateCustomer(customer=customer, success=True, message="Customer created successfully.")
         except IntegrityError as e:
             return CreateCustomer(customer=None, success=False, message=f"Email already exists.")
@@ -137,7 +138,8 @@ class BulkCreateCustomers(graphene.Mutation):
 )
                     continue
             try:
-                customer = Customer.objects.create(name=name, email=email, phone=phone)
+                customer = Customer(name=name, email=email, phone=phone)
+                customer.save()
                 created_customers.append(customer)
             except IntegrityError:
                 occurred_errors.append("Row {index + 1}: Email already exists.")
@@ -158,7 +160,8 @@ class CreateProduct(graphene.Mutation):
             return CreateProduct(product=None, success=False, message="Price must be a positive value")
         if stock < 0:
             return CreateProduct(product=None, success=False, message="Stock must be a positive value")
-        new_product = Product.objects.create(name=name, price=price, stock=stock)
+        new_product = Product(name=name, price=price, stock=stock)
+        new_product.save()
         return CreateProduct(product=new_product, success=True, message="product create successfully")
 
 class CreateOrder(graphene.Mutation):
@@ -187,7 +190,8 @@ class CreateOrder(graphene.Mutation):
         if order_date is None:
             order_date = datetime.now()
 
-        order = Order.objects.create(customer=customer, order_date=order_date)
+        order = Order(customer=customer, order_date=order_date)
+        order.save()
 
         order.products.add(*products)
 
