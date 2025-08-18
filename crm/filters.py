@@ -1,18 +1,18 @@
-import django_filters as filters
+import django_filters
 from django.db.models import Sum
 from .models import Customer, Product, Order
 
 
-class CustomerFilter(filters.FilterSet):
-    name = filters.CharFilter(field_name="name", lookup_expr="icontains")
-    email = filters.CharFilter(field_name="email", lookup_expr="icontains")
+class CustomerFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(field_name="name", lookup_expr="icontains")
+    email = django_filters.CharFilter(field_name="email", lookup_expr="icontains")
 
-    created_at__gte = filters.DateTimeFilter(field_name="created_at", lookup_expr="gte")
-    created_at__lte = filters.DateTimeFilter(field_name="created_at", lookup_expr="lte")
+    created_at__gte = django_filters.DateTimeFilter(field_name="created_at", lookup_expr="gte")
+    created_at__lte = django_filters.DateTimeFilter(field_name="created_at", lookup_expr="lte")
 
-    phone_pattern = filters.CharFilter(method="filter_phone_pattern")
+    phone_pattern = django_filters.CharFilter(method="filter_phone_pattern")
 
-    order_by = filters.OrderingFilter(
+    order_by = django_filters.OrderingFilter(
         fields=(
             ("name", "name"),
             ("email", "email"),
@@ -43,16 +43,16 @@ class CustomerFilter(filters.FilterSet):
         ]
 
 
-class ProductFilter(filters.FilterSet):
-    name = filters.CharFilter(field_name="name", lookup_expr="icontains")
-    price__gte = filters.NumberFilter(field_name="price", lookup_expr="gte")
-    price__lte = filters.NumberFilter(field_name="price", lookup_expr="lte")
-    stock__gte = filters.NumberFilter(field_name="stock", lookup_expr="gte")
-    stock__lte = filters.NumberFilter(field_name="stock", lookup_expr="lte")
+class ProductFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(field_name="name", lookup_expr="icontains")
+    price__gte = django_filters.NumberFilter(field_name="price", lookup_expr="gte")
+    price__lte = django_filters.NumberFilter(field_name="price", lookup_expr="lte")
+    stock__gte = django_filters.NumberFilter(field_name="stock", lookup_expr="gte")
+    stock__lte = django_filters.NumberFilter(field_name="stock", lookup_expr="lte")
 
-    low_stock = filters.BooleanFilter(method="filter_low_stock")
+    low_stock = django_filters.BooleanFilter(method="filter_low_stock")
 
-    order_by = filters.OrderingFilter(
+    order_by = django_filters.OrderingFilter(
         fields=(
             ("name", "name"),
             ("price", "price"),
@@ -78,21 +78,21 @@ class ProductFilter(filters.FilterSet):
         ]
 
 
-class OrderFilter(filters.FilterSet):
+class OrderFilter(django_filters.FilterSet):
     # Date range
-    order_date__gte = filters.DateTimeFilter(field_name="order_date", lookup_expr="gte")
-    order_date__lte = filters.DateTimeFilter(field_name="order_date", lookup_expr="lte")
+    order_date__gte = django_filters.DateTimeFilter(field_name="order_date", lookup_expr="gte")
+    order_date__lte = django_filters.DateTimeFilter(field_name="order_date", lookup_expr="lte")
 
     # Related lookups
-    customer_name = filters.CharFilter(field_name="customer__name", lookup_expr="icontains")
-    product_name = filters.CharFilter(field_name="products__name", lookup_expr="icontains")
+    customer_name = django_filters.CharFilter(field_name="customer__name", lookup_expr="icontains")
+    product_name = django_filters.CharFilter(field_name="products__name", lookup_expr="icontains")
 
-    product_id = filters.NumberFilter(method="filter_product_id")
+    product_id = django_filters.NumberFilter(method="filter_product_id")
 
-    total_amount__gte = filters.NumberFilter(method="filter_total_amount_gte")
-    total_amount__lte = filters.NumberFilter(method="filter_total_amount_lte")
+    total_amount__gte = django_filters.NumberFilter(method="filter_total_amount_gte")
+    total_amount__lte = django_filters.NumberFilter(method="filter_total_amount_lte")
 
-    order_by = filters.OrderingFilter(
+    order_by = django_filters.OrderingFilter(
         fields=(
             ("order_date", "order_date"),
         ),
