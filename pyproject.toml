@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "django-crontab>=0.7.1",
     "django-filter>=25.1",
     "gql>=4.0.0",
     "graphene-django>=3.2.3",
