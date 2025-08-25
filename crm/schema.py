@@ -53,6 +53,7 @@ class Query(graphene.ObjectType):
     customers = graphene.List(CustomerType)
     products = graphene.List(ProductType)
     orders = graphene.List(OrderType)
+    hello = graphene.String(default_value="Hello stranger")
 
     # Relay connections with filtering and sorting
     all_customers = DjangoFilterConnectionField(CustomerNode)
