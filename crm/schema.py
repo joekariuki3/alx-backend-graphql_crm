@@ -1,7 +1,5 @@
-from pyexpat.errors import messages
-
 import graphene
-from .models import Customer, Product, Order
+from crm.models import Product, Customer, Order
 from django.db import IntegrityError
 import re
 from datetime import datetime
