@@ -26,7 +26,6 @@ def remove_customer_with_no_order():
         log_file.write(
             f"{datetime.now()}: Removed {customers_to_remove_count} customers with no orders in the last 12 months.\n"
         )
-
     return customers_to_remove_count
 
 
